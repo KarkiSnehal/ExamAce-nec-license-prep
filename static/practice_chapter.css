@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --federal-blue: #03045eff;
+  --honolulu-blue: #0077b6ff;
+  --pacific-cyan: #00b4d8ff;
+  --non-photo-blue: #90e0efff;
+  --light-cyan: #caf0f8ff;
+  --white: #ffffff
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans", serif;
+}
+
+body {
+  margin: 5%;
+}
+
+label {
+  font-size: 16px;
+}
+
+.practice-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.question-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+
+}
+
+.options {
+  margin: 20px 0;
+}
+
+.option {
+  margin: 10px 0;
+}
+
+
+
+.explanation {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.button {
+
+  height: 50px;
+  border: 1px solid;
+  /* background: var(--federal-blue); */
+  border: 1px var(--federal-blue) solid;
+  border-radius: 8px;
+  font-size: 16px;
+  /* color: var(--white); */
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+}
+
+#submit {
+  background: var(--federal-blue);
+  color: var(--white);
+
+
+
+
+}
+
+#progress {
+  margin-top: 1rem;
+  font-size: 16px;
+}

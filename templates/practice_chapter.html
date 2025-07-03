@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ExamAce</title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'practice_chapter.css' %}" />
+    <link rel ="icon" href="{% static 'exama.png' %}" type="image/x-icon">
+  </head>
+  <body>
+    <div class="practice-container">
+      <h4>
+        Practice Questions for {{ chapter.chapter_number }} - {{ chapter.name }}
+      </h4>
+
+      <div class="progress" id="progress">
+        Set 1 of {{ total_sets }}, Question 1 of 10
+      </div>
+      <br />
+      <div class="question-card">
+        <h3 id="question-text">{{ questions.0.question }}</h3>
+        <form id="practice-form">
+          <div id="feedback" style="margin-top: 10px; font-size: 18px"></div>
+
+          <div class="options" id="options">
+            {% for option in questions.0.options %}
+            <div class="option">
+              <input
+                type="radio"
+                name="answer"
+                id="option{{ forloop.counter }}"
+                value="{{ option }}"
+              />
+              <label for="option{{ forloop.counter }}">{{ option }}</label>
+            </div>
+            {% endfor %}
+          </div>
+          <button
+            type="button"
+            class="button"
+            id="submit"
+            onclick="checkAnswer()"
+          >
+            Submit
+          </button>
+        </form>
+        <div class="explanation" id="explanation" style="display: none">
+          <strong>Explanation:</strong>
+          <span id="explanation-text">{{ questions.0.explanation }}</span>
+        </div>
+      </div>
+     
+
+      <div class="navigation">
+        <button id="prev-set-button" class="button" onclick="prevSet()" style="display: none;">
+          Previous Set
+        </button>
+        <button
+          id="prev-button"
+          class="button"
+          onclick="prevQuestion()"
+          disabled
+        >
+          Previous
+        </button>
+        <button id="next-button" class="button" onclick="nextQuestion()">
+          Next
+        </button>
+        <button id="next-set-button" class="button" onclick="nextSet()" style="display: none;">
+          Next Set
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  let currentQuestionIndex = 0;
+  let currentSetIndex = 0;
+  const questionsPerSet = 10; // Number of questions per set
+  const questions = {{ questions|safe }};
+  const totalSets = Math.ceil(questions.length / questionsPerSet);
+
+  function loadQuestion(index) {
+    const question = questions[index];
+    document.getElementById("question-text").innerText = question.question;
+
+    const optionsContainer = document.getElementById("options");
+    optionsContainer.innerHTML = "";
+    question.options.forEach((option, i) => {
+      optionsContainer.innerHTML += `
+                <div class="option">
+                    <input type="radio" name="answer" id="option${
+                      i + 1
+                    }" value="${option}">
+                    <label for="option${i + 1}">${option}</label>
+                </div>
+            `;
+    });
+
+    document.getElementById("explanation-text").innerText =
+      question.explanation;
+    document.getElementById("explanation").style.display = "none";
+// Reset feedback message
+    document.getElementById("feedback").innerHTML = "";
+    // Update progress
+
+    updateProgress();
+
+     // Update navigation buttons
+    document.getElementById("prev-button").disabled = index === 0;
+    document.getElementById("next-button").disabled =
+       index === questions.length - 1;
+       // Show/hide "Previous Set" and "Next Set" buttons
+    document.getElementById("prev-set-button").style.display =
+    currentSetIndex > 0 ? "inline-block" : "none";
+  document.getElementById("next-set-button").style.display =
+    currentSetIndex < totalSets - 1 ? "inline-block" : "none";
+
+    
+  }
+ 
+  function updateProgress() {
+    const currentSet = currentSetIndex + 1;
+    console.log(currentSet)
+    const currentQuestionInSet = (currentQuestionIndex % questionsPerSet) + 1;
+    const totalQuestionsInSet = Math.min(
+      questionsPerSet,
+      questions.length - currentSetIndex * questionsPerSet
+    );
+
+    document.getElementById("progress").textContent = `Set ${currentSet} of ${totalSets}, Question ${currentQuestionInSet} of ${totalQuestionsInSet}`;
+  } 
+
+  function checkAnswer() {
+    const selectedAnswer = document.querySelector(
+      'input[name="answer"]:checked'
+    );
+    const feedback = document.getElementById("feedback");
+
+    if (selectedAnswer) {
+      const correctAnswer =
+        questions[currentQuestionIndex].options[
+          questions[currentQuestionIndex].answer.charCodeAt(0) - 65
+        ];
+
+      if (selectedAnswer.value === correctAnswer) {
+        feedback.innerHTML =
+          '<span style="color: green; font-weight: bold;">Correct! 🎉</span>';
+      } else {
+        feedback.innerHTML = `<span style="color: red; font-weight: bold;">Incorrect. The correct answer is: ${correctAnswer}</span>`;
+      }
+
+      document.getElementById("explanation").style.display = "block";
+    } else {
+      feedback.innerHTML =
+        '<span style="color: orange; font-weight: bold;">Please select an answer.</span>';
+    }
+  }
+
+  function nextQuestion() {
+    if (currentQuestionIndex < questions.length - 1) {
+      currentQuestionIndex++;
+      loadQuestion(currentQuestionIndex);
+    }
+  }
+
+  function prevQuestion() {
+    if (currentQuestionIndex > 0) {
+      currentQuestionIndex--;
+      loadQuestion(currentQuestionIndex);
+    }
+  }
+
+  function nextSet() {
+    if (currentSetIndex < totalSets - 1) {
+      currentSetIndex++;
+      currentQuestionIndex = currentSetIndex * questionsPerSet;
+      loadQuestion(currentQuestionIndex);
+    }
+  }
+  function prevSet() {
+    if (currentSetIndex > 0) {
+      currentSetIndex--;
+      currentQuestionIndex = currentSetIndex * questionsPerSet;
+      loadQuestion(currentQuestionIndex);
+    }
+  }
+
+  // Load the first question
+  loadQuestion(currentQuestionIndex);
+  
+</script>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Model Test - ExamAce</title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'model_test.css' %}" />
+    <link rel ="icon" href="{% static 'exama.png' %}" type="image/x-icon">
+</head>
+<body>
+    <div class="timer" id="timer">02:00:00</div>
+    <div class="wrapper">
+    <form id="testForm" action="{% url 'submit_model_test' %}" method="POST">
+        {% csrf_token %}
+        
+        <div class="section">
+            <h1>Nepal Engineering Council Registration Examination</h1>
+            <h2>Section A (60*1 = 60)</h2>
+            {% for question in section_a %}
+            <div class="question">
+                <h4>{{ forloop.counter }}. {{ question.question }}</h4>
+                {% for option in question.options %}
+                <label>
+                    <input type="radio" name="q_{{ question.id }}" value="{{ forloop.counter0|add:'A' }}">
+                    {{ option }}
+                </label><br>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="section">
+            <h2>Section B (20*2 = 40)</h2>
+            {% for question in section_b %}
+            <div class="question">
+                <h4>{{ forloop.counter|add:60 }}. {{ question.question }}</h4>
+                {% for option in question.options %}
+                <label>
+                    <input type="radio" name="q_{{ question.id }}" value="{{ forloop.counter0|add:'A' }}">
+                    {{ option }}
+                </label><br>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <button type="submit">Submit Test</button>
+    </form>
+<div>
+    <script>
+       // Initialize timer with remaining time from backend
+    let timeLeft = {{ remaining_time|default:7200 }};  // Use remaining time or default to 2 hours
+    const timerElement = document.getElementById('timer');
+    
+    function updateTimer() {
+        const hours = Math.floor(timeLeft / 3600);
+        const minutes = Math.floor((timeLeft % 3600) / 60);
+        const seconds = timeLeft % 60;
+        
+        timerElement.textContent = 
+            `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        
+        if(timeLeft <= 0) {
+            document.getElementById('testForm').submit();
+        }
+        timeLeft--;
+    }
+
+    // Start timer
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    // Warn before closing
+    window.onbeforeunload = function() {
+        return "Are you sure you want to leave? Your progress will be lost!";
+    };
+    </script>
+</body>
+</html>

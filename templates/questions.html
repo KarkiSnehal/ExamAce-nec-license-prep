@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ExamAce</title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'questions.css' %}" />
+    <link rel ="icon" href="{% static 'exama.png' %}" type="image/x-icon">
+  </head>
+  <body>
+   <div class="main-container">
+      <h3>Welcome, {{ username }}</h3>
+      <br />
+
+      <!-- Subject Grid -->
+      <p id="instruct">Select a Subject to practice</p>
+      <br />
+      <div class="subject-grid">
+        {% for subject in subjects %}
+        <div class="subject-card">
+          <a
+            href="{% url 'subject_detail' subject.id %}"
+            target="_blank"
+            style="text-decoration: none; color: inherit;"
+          >
+            <h4>{{ subject.name }}</h4>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="model-test-option">
+        <h3>Model Test (2 Hours)</h3>
+        
+        <a href="{% url 'model_test' %}" target="_blank">
+            <button class="practice">Start Model Test</button>
+        </a>
+        <p>80 Questions (60*1 + 20*2 ) | 2 Hour Duration</p>
+</div>
+<div class="progress-header">
+  <div class="test-stats">
+      <span class="stat-box completed">
+          <strong>{{ total_completed }}</strong>
+          <span>Tests Completed</span>
+      </span>
+      <span class="stat-box avg-score">
+          <strong>{{ avg_score|floatformat:1 }}</strong>
+          <span>Average Score</span>
+      </span>
+  </div>
+</div>
+    </div>
+      <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ExamAce</title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link rel ="icon" href="{% static 'exama.png' %}" type="image/x-icon">
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <a href="/" id="title">ExamAce</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="{% url 'login'%}" id="login">Login</a></li>
+        <li><a href="/register" id="register">Register</a></li>
+      </ul>
+    </nav>
+    <div class="intro">
+      <img src="static/frame.svg" />
+      <p>
+        Everything you need to approach NEC License exam with full confidence.
+      </p>
+      <a href="{% url 'login'%}"
+        ><input type="button" value="Start Preparing" id="start"
+      /></a>
+    </div>
+  </body>
+</html>

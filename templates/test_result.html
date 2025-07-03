@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <title>Test Result - ExamAce</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            font-family: "Noto Sans", serif;
+        }
+        .result-card {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 600px;
+            border: 2px solid #03045eff;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .score {
+            font-size: 2rem;
+            color: #03045eff;
+        }
+
+        #return-back{
+            font-size: 25px;
+            text-decoration: none;
+            border:  #03045eff solid 2px;
+            padding: 0.3rem;
+            
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="result-card">
+        <h2>Test Results</h2>
+        <div class="score">
+            Correct: {{ correct }}<br>
+            Wrong: {{ wrong }}<br>
+            Unattempted: {{ unattempted }}
+        </div>
+        <p>Total Score: {{ correct }} / 80</p>
+        <a href="{% url 'questions' %}"  id= "return-back">Return to Dashboard</a>
+    </div>
+</body>
+</html>

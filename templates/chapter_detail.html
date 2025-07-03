@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ selected_chapter.name }} - ExamAce</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'chapter_detail.css' %}" />
+    <link rel ="icon" href="{% static 'exama.png' %}" type="image/x-icon">
+  </head>
+  <body>
+    <div class="main-container">
+      <h3>Questions for Chapter: {{ selected_chapter.name }}</h3>
+
+      <div class="questions-list">
+        <a
+          href="{% url 'practice_chapter' selected_chapter.id %}"
+          
+        >
+          <button class="practice">Practice All Questions</button>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* 16 - 14- */
+:root {
+    --federal-blue: #03045eff;
+    --honolulu-blue: #0077b6ff;
+    --pacific-cyan: #00b4d8ff;
+    --non-photo-blue: #90e0efff;
+    --light-cyan: #caf0f8ff;
+    --white: #ffffff
+}
+
+p {
+    font-size: 16px;
+}
+
+* {
+
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans", serif;
+}
+
+body,
+html {
+    height: 100%;
+    margin: 0.9rem;
+    background-color: var(--white);
+    height: 100vh;
+    /* overflow: hidden; */
+    color: var(--federal-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.practice {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+
+    border: 1px solid;
+    background: var(--federal-blue);
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--white);
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    text-align: center;
+}

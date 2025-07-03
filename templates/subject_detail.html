@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ selected_subject.name }} - ExamAce</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'subject_detail.css' %}" />
+    <link rel ="icon" href="{% static 'exama.png' %}" type="image/x-icon">
+  </head>
+  <body>
+    <div class="main-container">
+      <h3>Chapters for {{ selected_subject.name }}</h3>
+      <br />
+      <div class="subject-grid">
+        {% for chapter in chapters %}
+        <div class="subject-card">
+          <a
+            href="{% url 'chapter_detail' chapter.id %}"
+            
+            style="text-decoration: none; color: inherit;"
+          >
+            <h5>{{ chapter.chapter_number }} - {{ chapter.name }}</h5>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>
