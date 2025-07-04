@@ -59,7 +59,7 @@ def register(request):
         
     
     
-    return render(request,'register.html')
+    return render(request,'registration/register.html')
 
 
 
@@ -78,7 +78,7 @@ def loginView(request):
         # redirect back to the login page if credentials are wrong
          messages.error(request, 'Invalid username or password')
          return redirect('login')
-    return render(request, 'login')
+    return render(request, 'registration/login')
 
 
 
